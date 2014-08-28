@@ -1,0 +1,42 @@
+package easy;
+
+import java.util.Scanner;
+
+class ATM {
+	static final int VALID_TRANS_FACTOR = 5;
+	static final float BANK_CHARGES = 0.50f;
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		int withdrwalAmmount = 0;
+		float balance = 0f;
+
+		String input = sc.nextLine();
+		String[] inputArray = null;
+		if (input != null && input.trim().length() > 0) {
+			inputArray = input.trim().split(" ");
+		}
+		if (inputArray != null) {
+			withdrwalAmmount = Integer.parseInt(inputArray[0]);
+			balance = Float.parseFloat(inputArray[1]);
+		}
+		// validate input
+		if (validateInput(withdrwalAmmount, balance)) {
+			balance = balance - (withdrwalAmmount + BANK_CHARGES); 
+		}
+		System.out.printf("%.2f", balance);
+	}
+
+	static boolean validateInput(int withdrawAmt, float balance) {
+		if (withdrawAmt > 0 && withdrawAmt <= 2000
+				&& withdrawAmt % VALID_TRANS_FACTOR == 0 && balance >= 0
+				&& balance <= 2000) {
+			if (balance >= (withdrawAmt + BANK_CHARGES)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+}
